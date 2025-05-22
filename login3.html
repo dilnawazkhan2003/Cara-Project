@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEase - Login/Sign Up</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .form-header h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .form-header p {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 5px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            font-size: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-top: 5px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .captcha {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .captcha span {
+            font-size: 18px;
+            color: #555;
+            margin: 10px 0;
+        }
+        
+        .otp {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .signup-link {
+            margin-top: 20px;
+        }
+        
+        .signup-link a {
+            color: #4CAF50;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .form-container {
+                width: 80%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .form-container {
+                width: 90%;
+            }
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div class="form-container" id="login-form-container">
+            <div class="form-header">
+                <h2>Welcome Back!</h2>
+                <p>Sign in to your account</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email or Phone:</label>
+                    <input type="text" id="login-email" name="login-email" required placeholder="Enter your email or phone">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="login-password" required placeholder="Enter your password">
+                </div>
+                <div class="form-group captcha">
+                    <label for="captcha">Solve this:</label>
+                    <span id="captcha-question"></span>
+                    <input type="text" id="captcha-answer" name="captcha-answer" required placeholder="Enter CAPTCHA answer">
+                </div>
+                <div class="form-group otp">
+                    <label for="otp">Enter OTP:</label>
+                    <input type="text" id="otp" name="otp" placeholder="Enter OTP" disabled>
+                    <button type="button" id="otp-send-btn">Send OTP</button>
+                </div>
+                <button type="submit" id="login-btn">Login</button>
+            </form>
+            <p class="error-message" id="error-message">Invalid CAPTCHA or OTP. Please try again.</p>
+            <div class="signup-link">
+                <p>Don't have an account? <a href="#" id="show-signup-form">Create one now</a></p>
+            </div>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div class="form-container" id="signup-form-container" style="display: none;">
+            <div class="form-header">
+                <h2>Create an Account</h2>
+                <p>Sign up to start shopping</p>
+            </div>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="new-email">Email:</label>
+                    <input type="email" id="new-email" name="new-email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="new-phone">Phone Number:</label>
+                    <input type="text" id="new-phone" name="new-phone" required placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="new-password">Password:</label>
+                    <input type="password" id="new-password" name="new-password" required placeholder="Create a password">
+                </div>
+                <button type="submit" id="signup-btn">Sign Up</button>
+            </form>
+            <p class="error-message" id="signup-error-message"></p>
+            <div class="signup-link">
+                <p>Already have an account? <a href="#" id="show-login-form">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let captchaAnswer;
+            
+            // Function to generate CAPTCHA
+            function generateCaptcha() {
+                const num1 = Math.floor(Math.random() * 10) + 1;
+                const num2 = Math.floor(Math.random() * 10) + 1;
+                captchaAnswer = num1 + num2;
+                document.getElementById('captcha-question').textContent = `${num1} + ${num2} = ?`;
+            }
+        
+            // Generate CAPTCHA on page load
+            generateCaptcha();
+        
+            // Send OTP (for demonstration purposes)
+            function sendOtp() {
+                alert('OTP sent! (In a real system, this would be sent via email/SMS.)');
+                document.getElementById('otp').disabled = false; // Enable OTP input
+            }
+        
+            // Handle Login Form
+            const loginForm = document.getElementById('login-form');
+            loginForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const userCaptchaAnswer = document.getElementById('captcha-answer').value;
+                const userOtp = document.getElementById('otp').value;
+        
+                if (parseInt(userCaptchaAnswer) === captchaAnswer && userOtp === '123456') {
+                    alert('Login successful!');
+                    // Redirect or proceed with login logic here
+                } else {
+                    document.getElementById('error-message').style.display = 'block';
+                    generateCaptcha(); // Regenerate CAPTCHA on error
+                }
+            });
+        
+            // Handle Sign Up Form
+            const signupForm = document.getElementById('signup-form');
+            signupForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const newEmail = document.getElementById('new-email').value;
+                const newPhone = document.getElementById('new-phone').value;
+                const newPassword = document.getElementById('new-password').value;
+        
+                // Simulate account creation
+                alert('Account created successfully!');
+                document.getElementById('signup-error-message').style.display = 'none';
+                // Redirect to login or take further action
+            });
+        
+            // Show Sign Up Form
+            document.getElementById('show-signup-form').addEventListener('click', function () {
+                document.getElementById('login-form-container').style.display = 'none';
+                document.getElementById('signup-form-container').style.display = 'block';
+            });
+        
+            // Show Login Form
+            document.getElementById('show-login-form').addEventListener('click', function () {
+                document.getElementById('signup-form-container').style.display = 'none';
+                document.getElementById('login-form-container').style.display = 'block';
+            });
+        
+            // Send OTP on button click
+            document.getElementById('otp-send-btn').addEventListener('click', sendOtp);
+        });
+        
+        
+        
+    </script>
+</body>
+</html>d
